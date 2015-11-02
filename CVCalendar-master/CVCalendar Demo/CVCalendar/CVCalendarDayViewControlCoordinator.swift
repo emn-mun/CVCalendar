@@ -76,7 +76,6 @@ extension CVCalendarDayViewControlCoordinator {
         // -------          ------
         
         if selectionSet.count > dicissiveCount {
-            let count = selectionSet.count-1
             for dayViewInQueue in selectionSet {
                 if dayView != dayViewInQueue {
                     if dayView.calendarView != nil {
@@ -91,8 +90,12 @@ extension CVCalendarDayViewControlCoordinator {
             }
         }
         
-        if let animator = animator {
+        if animator != nil {
             if selectedDayView != dayView {
+                if calendarView.rangeSelection.isActive && calendarView.rangeSelection.isDayAlreadyPresentedInInterval(dayView) {
+                    return;
+                }
+                
                 selectedDayView = dayView
                 presentSelectionOnDayView(dayView)
                 

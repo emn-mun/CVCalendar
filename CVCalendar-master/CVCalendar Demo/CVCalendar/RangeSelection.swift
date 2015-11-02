@@ -13,6 +13,7 @@ public final class RangeSelection {
     
     public var delegate: RangeSelectionDelegate!
     var isActive = false
+    var isSelected = false
     var startDate: CVDate!
     var endDate: CVDate!
     
@@ -29,12 +30,21 @@ public final class RangeSelection {
     
     public func onEndDateSelected(dayView: DayView) {
         endDate = dayView.date
+        isSelected = true
         selectInterval()
         delegate?.onRangeSelected?(startDate, endDate: endDate)
     }
     
     public func onDateDeselected() {
+        isSelected = false
         deSelectInterval()
+    }
+    
+    public func isDayAlreadyPresentedInInterval(dayView: DayView) -> Bool {
+        if isSelected && dayView.date.isDateInSelectedRangeEqual(startDate, endDate: endDate) {
+            return true
+        }
+        return false
     }
     
     private func selectInterval() {

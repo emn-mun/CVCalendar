@@ -91,6 +91,13 @@ extension CVDate {
             (self.date.timeIntervalSince1970 < startDate.date.timeIntervalSince1970 &&
                 self.date.timeIntervalSince1970 > endDate.date.timeIntervalSince1970)
     }
+    func isDateInSelectedRangeEqual(startDate: CVDate, endDate: CVDate) -> Bool {
+        return
+            (self.date.timeIntervalSince1970 >= startDate.date.timeIntervalSince1970 &&
+                self.date.timeIntervalSince1970 <= endDate.date.timeIntervalSince1970) ||
+                (self.date.timeIntervalSince1970 <= startDate.date.timeIntervalSince1970 &&
+                    self.date.timeIntervalSince1970 >= endDate.date.timeIntervalSince1970)
+    }
     func isDateEqualTo(date: CVDate) -> Bool {
         return self.date.timeIntervalSince1970 == date.date.timeIntervalSince1970
     }
