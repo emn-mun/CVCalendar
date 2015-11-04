@@ -9,7 +9,7 @@
 import UIKit
 
 public final class CVCalendarMonthContentViewController: CVCalendarContentViewController {
-    private var monthViews: [Identifier : MonthView]
+    public var monthViews: [Identifier : MonthView]
     
     public override init(calendarView: CalendarView, frame: CGRect) {
         monthViews = [Identifier : MonthView]()
@@ -324,10 +324,15 @@ extension CVCalendarMonthContentViewController {
                 if indexOfIdentifier(index) != 1 {
                     monthView.mapDayViews {
                         dayView in
-                        
                         if dayView == selected {
-                            dayView.setDeselectedWithClearing(true)
-                            coordinator.dequeueDayView(dayView)
+                            
+                            if self.calendarView.rangeSelection != nil {
+                                if !self.calendarView.rangeSelection.hasDateAlredyBeenSelected(dayView) {
+                                    dayView.setDeselectedWithClearing(true)
+                                    coordinator.dequeueDayView(dayView)
+                                }
+                            }
+                            
                         }
                     }
                 }

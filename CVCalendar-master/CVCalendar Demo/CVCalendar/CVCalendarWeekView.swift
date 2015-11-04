@@ -180,12 +180,28 @@ extension CVCalendarWeekView {
         dayViews = [CVCalendarDayView]()
         for i in 1...7 {
             let dayView = CVCalendarDayView(weekView: self, weekdayIndex: i)
-            
+    
             safeExecuteBlock({
                 self.dayViews!.append(dayView)
                 }, collapsingOnNil: true, withObjects: dayViews)
             
             addSubview(dayView)
+        }
+        if monthView.calendarView.rangeSelection != nil {
+            if monthView.calendarView.rangeSelection.isActive {
+                if monthView.calendarView.rangeSelection.startDate != nil {
+                    for dayView in dayViews {
+                        print("Filtered date:" + dayView.date.commonDescription)
+                        if monthView.calendarView.rangeSelection.hasDateAlredyBeenSelected(dayView) {
+                            calendarView.animator.animateSelectionOnDayView(dayView)
+                            print(" !!! Founded Matched date" + dayView.date.commonDescription)
+                        } else {
+                            calendarView.animator.animateDeselectionOnDayView(dayView)
+                            print(" !!! Deselect Matched date" + dayView.date.commonDescription)
+                        }
+                    }
+                }
+            }
         }
     }
     
