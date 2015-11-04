@@ -82,7 +82,9 @@ extension CVCalendarDayViewControlCoordinator {
                         presentDeselectionOnDayView(dayViewInQueue)
                         
                         // ------- MY STUFF ------
-                        calendarView.rangeSelection.onDateDeselected()
+                        if calendarView.rangeSelection.isActive {
+                            calendarView.rangeSelection.onDateDeselected()
+                        }
                         // -------          ------
                     }
                     
@@ -91,22 +93,19 @@ extension CVCalendarDayViewControlCoordinator {
         }
         
         if animator != nil {
-            if selectedDayView != dayView {
-                if calendarView.rangeSelection.isActive && calendarView.rangeSelection.isDayAlreadyPresentedInInterval(dayView) {
-                    return;
-                }
                 
-                selectedDayView = dayView
-                presentSelectionOnDayView(dayView)
-                
-                // ------- MY STUFF ------
+            selectedDayView = dayView
+            presentSelectionOnDayView(dayView)
+            
+            // ------- MY STUFF ------
+            if calendarView.rangeSelection.isActive {
                 if selectionSet.count == 1 || selectionSet.count == 3 {
                     calendarView.rangeSelection.onStartDateSelected(dayView)
                 } else {
                     calendarView.rangeSelection.onEndDateSelected(dayView)
                 }
-                // -------          ------
             }
+            // -------          ------
         } 
     }
     

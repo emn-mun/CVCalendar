@@ -326,7 +326,7 @@ extension CVCalendarMonthContentViewController {
                         dayView in
                         if dayView == selected {
                             
-                            if self.calendarView.rangeSelection != nil {
+                            if self.calendarView.rangeSelection.isSelected {
                                 if !self.calendarView.rangeSelection.hasDateAlredyBeenSelected(dayView) {
                                     dayView.setDeselectedWithClearing(true)
                                     coordinator.dequeueDayView(dayView)

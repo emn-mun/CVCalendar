@@ -31,6 +31,7 @@ public final class RangeSelection {
     public func onEndDateSelected(dayView: DayView) {
         endDate = dayView.date
         isSelected = true
+        print("On end date !!!!!")
         selectInterval()
         delegate?.onRangeSelected?(startDate, endDate: endDate)
     }
