@@ -26,8 +26,8 @@ class ViewController: UIViewController {
         monthLabel.text = CVDate(date: NSDate()).globalDescription
         
         // MY STUFF
-//        calendarView.rangeSelection.isActive = true
-//        calendarView.rangeSelectionDelegate = self
+        calendarView.rangeSelection.isActive = true
+        calendarView.rangeSelectionDelegate = self
     }
 
     override func viewDidLayoutSubviews() {
