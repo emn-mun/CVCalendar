@@ -95,14 +95,22 @@ extension CVCalendarDayViewControlCoordinator {
         if animator != nil {
             
             selectedDayView = dayView
-            presentSelectionOnDayView(dayView)
+            if calendarView.rangeSelection != nil && !calendarView.rangeSelection.isSelected {
+                if calendarView.rangeSelection.startDate == nil || !dayView.date.isDateEqualTo(calendarView.rangeSelection.startDate) {
+                        presentSelectionOnDayView(dayView)
+                }
+            }
             
             // ------- MY STUFF ------
             if calendarView.rangeSelection.isActive {
                 if selectionSet.count == 1 || selectionSet.count == 3 {
                     calendarView.rangeSelection.onStartDateSelected(dayView)
                 } else {
-                    calendarView.rangeSelection.onEndDateSelected(dayView)
+                    if calendarView.rangeSelection.isSelected {
+                        calendarView.rangeSelection.onStartDateSelected(dayView)
+                    } else {
+                        calendarView.rangeSelection.onEndDateSelected(dayView)
+                    }
                 }
             }
             // -------          ------

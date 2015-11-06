@@ -47,6 +47,18 @@ extension CVCalendarViewAnimator {
     }
 }
 
+// ------- MY STUFF --------
+extension CVCalendarViewAnimator {
+    public func animateRangeSelectionOnDayView(dayView: DayView) {
+        let selectionAnimation = delegate.selectionAnimation()
+        dayView.setSelectedWithType(.Single)
+        selectionAnimation(dayView) {completion in
+        }
+    }
+}
+// --------        ---------
+
+
 // MARK: - CVCalendarViewAnimatorDelegate
 
 extension CVCalendarViewAnimator: CVCalendarViewAnimatorDelegate {

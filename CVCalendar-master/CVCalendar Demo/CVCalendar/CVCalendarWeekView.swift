@@ -193,7 +193,7 @@ extension CVCalendarWeekView {
                     for dayView in dayViews {
                         print("Filtered date:" + dayView.date.commonDescription)
                         if monthView.calendarView.rangeSelection.hasDateAlredyBeenSelected(dayView) {
-                            calendarView.animator.animateSelectionOnDayView(dayView)
+                            calendarView.animator.animateRangeSelectionOnDayView(dayView)
                             print(" !!! Founded Matched date" + dayView.date.commonDescription)
                         } else {
                             calendarView.animator.animateDeselectionOnDayView(dayView)

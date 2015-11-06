@@ -24,8 +24,11 @@ public final class RangeSelection {
     }
     
     public func onStartDateSelected(dayView: DayView) {
-        startDate = dayView.date
         monthView = dayView.monthView
+        startDate = dayView.date
+        deselectAllButDay(dayView)
+        isSelected = false
+        print("On start date !!!!!")
     }
     
     public func onEndDateSelected(dayView: DayView) {
@@ -68,7 +71,7 @@ public final class RangeSelection {
             for weekView in monthView.1.weekViews {
                 for dayView in weekView.dayViews {
                     if dayView.date.isDateInSelectedRange(startDate, endDate: endDate) {
-                        calendarView.animator.animateSelectionOnDayView(dayView)
+                        calendarView.animator.animateRangeSelectionOnDayView(dayView)
                     }
                 }
             }
@@ -82,6 +85,18 @@ public final class RangeSelection {
 //                    if !dayView.date.isDateEqualTo(startDate) && !dayView.date.isDateEqualTo(endDate) {
                         calendarView.animator.animateDeselectionOnDayView(dayView)
 //                    }
+                }
+            }
+        }
+    }
+    
+    private func deselectAllButDay(selectedDate: DayView) {
+        for monthView in (calendarView.contentController as! CVCalendarMonthContentViewController).monthViews {
+            for weekView in monthView.1.weekViews {
+                for dayView in weekView.dayViews {
+                    if !dayView.date.isDateEqualTo(selectedDate.date) {
+                        calendarView.animator.animateDeselectionOnDayView(dayView)
+                    }
                 }
             }
         }
